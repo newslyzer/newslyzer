@@ -1,0 +1,29 @@
+version: '3'
+
+services:
+  rabbitmq:
+    image: "rabbitmq:3.7-management-alpine"
+    restart: "always"
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+
+  postgresql:
+    image:  "postgres:10-alpine"
+    restart: "always"
+    environment:
+      POSTGRES_USER: "newslyzer"
+      POSTGRES_PASSWORD: "newslyzer"
+      PGDATA: "/var/lib/postgresql/data/pgdata"
+
+    volumes:
+      - "./pgdata:/var/lib/postgresql/data/pgdata"
+
+    ports:
+      - "5432:5432"
+
+  redis:
+    image: "redis:5.0-alpine"
+    restart: "always"
+    ports:
+      - "6379:6379"
