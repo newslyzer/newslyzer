@@ -1,6 +1,10 @@
 from celery import group, chord, signature, chain
 import newslyzer.tasks as t
 
+def run_one(app, task, *arguments):
+    sig = app.signature(task, args=arguments, kwargs={ 'context': {} })
+    return sig.apply_async().get()
+
 def workflow(url, app):
     context = {
         'sentiment_analysis': {
@@ -16,7 +20,7 @@ def workflow(url, app):
 
     print('workflow => {}'.format(url))
     prepare_data = chain(
-        s('download-task'),
+        s('download-article'),
         # signature('parse-html'),
         # signature('clean-text'),
         s('process-sentences'),

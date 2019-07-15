@@ -6,5 +6,4 @@ class CreateView(Task):
     depends = [ 'process-sentences' ]
 
     def run(self, result):
-        print('>> CreateView {}'.format(result))
         return result

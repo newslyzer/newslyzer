@@ -6,7 +6,6 @@ class JoinAnalysis(Task):
     depends = [ 'sentiment-analysis', 'named-entity-analysis' ]
 
     def run(self, results, sentence):
-        print('JoinAnalysis: results({}), sentence({})'.format(results, sentence))
         return {
             'sentence': sentence,
             'sa_analysis': results[0],

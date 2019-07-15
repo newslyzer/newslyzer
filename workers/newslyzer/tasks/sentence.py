@@ -6,5 +6,4 @@ class Sentence(Task):
     depends = []
 
     def run(self, sentence):
-        print('>> Sentence {}'.format(sentence))
         return sentence

@@ -1,5 +1,7 @@
-
 from abc import ABC, abstractmethod
+from celery.utils.log import get_task_logger
+
+logger = get_task_logger(__name__)
 
 class Task(ABC):
     def __init__(self, config, context):
@@ -14,9 +16,12 @@ class Task(ABC):
     def register_task(cls, celery_app, config):
         @celery_app.task(name=cls.provides)
         def task(*args, **kwargs):
-            print('task {} args: {}, kwargs: {}'.format(cls.provides, args, kwargs))
+            # print('task {} args: {}, kwargs: {}'.format(cls.provides, args, kwargs))
+            logger.info('task {} args: {}, kwargs: {}'.format(cls.provides, args, kwargs))
             task_instance = cls(config, kwargs['context'])
-            return task_instance.run(*args)
+            result = task_instance.run(*args)
+            # print('task {} result: {}'.format(cls.provides, result))
+            return result
         task
 
 

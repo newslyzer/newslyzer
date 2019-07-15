@@ -7,5 +7,4 @@ class NamedEntityAnalysis(Task):
     depends = [ 'sentence' ]
 
     def run(self, sentence):
-        print('>> NamedEntityAnalysis {}'.format(sentence))
         return { 'lorem': 'NP', 'ipsum': 'NPP' }
