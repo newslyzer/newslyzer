@@ -1,11 +1,11 @@
-from . import Task
+from .. import Task
 
 from flair.data import Sentence
 from flair.models import SequenceTagger
 
-class NamedEntityAnalysis(Task):
+class FlairNER(Task):
     # depends = [ 'clean-text' ]
-    name = 'Named Entity Analysis'
+    name = 'Named Entity Analysis (FLAIR)'
     provides = 'named-entity-analysis'
     depends = [ 'sentence' ]
 

@@ -28,7 +28,9 @@ class Task(ABC):
 from .create_view import CreateView
 from .download_article import DownloadArticle
 from .join_analysis import JoinAnalysis
-from .named_entity_analysis import NamedEntityAnalysis
 from .process_sentences import ProcessSentences
 from .sentence import Sentence
 from .sentiment_analysis import SentimentAnalysis
+
+from .ner.flair_ner import FlairNER
+from .ner.spacy_ner import SpacyNER
