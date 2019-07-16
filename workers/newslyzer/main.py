@@ -7,6 +7,10 @@ app = Celery(
     backend='redis://127.0.0.1'
 )
 
+app.conf.task_routes = {
+    'named-entity-analysis': { 'queue': 'ner' }
+}
+
 config = {}
 
 register_tasks(app, config)

@@ -7,9 +7,8 @@ class SentimentAnalysis(Task):
     provides = 'sentiment-analysis'
     depends = [ 'sentence' ]
 
-    def run(self, sentence):
-        if not 'sid' in self.context:
-            self.context['sid'] = SentimentIntensityAnalyzer()
-
-        ss = self.context['sid'].polarity_scores(sentence)
-        return ss['compound']
+    def run(self, data, sentence):
+        sid = SentimentIntensityAnalyzer()
+        ss = sid.polarity_scores(sentence['text'])
+        sentence['sentiment'] = ss['compound']
+        return sentence

@@ -12,8 +12,8 @@ def workflow(url, app):
         },
     }
 
-    def s(task):
-        return app.signature(task, kwargs={ 'context': context })
+    def s(task, *args):
+        return app.signature(task, args=args, kwargs={ 'context': context })
 
     def ss(task, sentence):
         return app.signature(task, args=(sentence, ), kwargs={ 'context': context })
@@ -26,22 +26,21 @@ def workflow(url, app):
         s('process-sentences'),
     ).delay(url)
 
+    data = prepare_data.get()
+
     sentences =  [
         group(
             ss('sentiment-analysis', sentence),
             ss('named-entity-analysis', sentence)
         ) | ss('join-analysis', sentence)
-        for sentence in prepare_data.get()
+        for sentence in data['sentences']
     ]
 
-    result_workflow = group(sentences) | s('create-view')
+    result_workflow = group(sentences) | s('create-view', data)
 
+    result = result_workflow.delay(data)
 
-    return result_workflow.apply_async().get()
-    # result = result.appy_async().get()
-    # print('RESULT: {}'.format(result))
-    # return result
-    #return rest
+    return result.get()
 
 def register_tasks(app, config):
     for task in [

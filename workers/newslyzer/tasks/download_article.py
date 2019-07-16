@@ -10,4 +10,16 @@ class DownloadArticle(Task):
         article = NewspaperArticle(url)
         article.download()
         article.parse()
-        return article.text.replace('\n', ' ')
+        article.nlp()
+
+        return {
+            'image': article.top_image,
+            'title': article.title,
+            'language': article.meta_lang,
+            'description': article.meta_description,
+            'summary': article.summary,
+            'url': url,
+            'sourceName': article.meta_data.get('og', {}).get('site_name', None),
+            'sourceUrl': article.source_url,
+            'text': article.text.replace('\n', ' ')
+        }

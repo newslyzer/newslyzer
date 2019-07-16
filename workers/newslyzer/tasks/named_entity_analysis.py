@@ -1,4 +1,6 @@
 from newslyzer.tasks import Task
+from flair.data import Sentence
+from flair.models import SequenceTagger
 
 class NamedEntityAnalysis(Task):
     # depends = [ 'clean-text' ]
@@ -6,5 +8,16 @@ class NamedEntityAnalysis(Task):
     provides = 'named-entity-analysis'
     depends = [ 'sentence' ]
 
-    def run(self, sentence):
-        return { 'lorem': 'NP', 'ipsum': 'NPP' }
+    def run(self, data, sentence):
+        if (not 'tagger' in self.config):
+            self.config['tagger'] = SequenceTagger.load('ner-multi-fast')
+
+        sent_model = Sentence(sentence['text'])
+        self.config['tagger'].predict(sent_model)
+
+        sentence['ner'] = [ {
+            'text': d['text'],
+            'type': d['type']
+        } for d in [ span.to_dict() for span in sent_model.get_spans('ner') ]]
+
+        return sentence
