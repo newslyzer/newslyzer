@@ -1,0 +1,7 @@
+<div class="particle-graph">
+    <div class="progress-bar">
+      <div :style="{ width: getPercent(negative) }" class="progress negative" :title="getPercent(negative) +' negative'"></div>
+      <div :style="{ width: getPercent(neutral) }" class="progress neutral" :title="getPercent(neutral) +' neutral'"></div>
+      <div :style="{ width: getPercent(positive) }" class="progress positive" :title="getPercent(positive) +' positive'"></div>
+    </div>
+</div>

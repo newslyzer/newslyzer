@@ -1,0 +1,67 @@
+@import "../../styles/variables.css";
+
+.particles-table {
+  width: 100%;
+}
+
+table {
+  border-collapse: collapse;
+  & td {
+    padding: 0.5rem;
+  }
+  & tbody {
+    border-right: 1px solid var(--gray200);
+    border-left: 1px solid var(--gray200);
+    &:first-of-type {
+      border-top: 1px solid var(--gray200);
+    }
+    &:last-of-type {
+      border-bottom: 1px solid var(--gray200);
+    }
+  }
+}
+
+th {
+  padding: 0.75rem;
+  font-size: var(--xxsmall);
+  font-weight: 200;
+  &:first-child {
+    width: 35%;
+  }
+  &:nth-child(2) {
+    text-align: left;
+    width: 10%;
+  }
+  &:nth-child(3) {
+    width: auto;
+  }
+  &:nth-child(4) {
+    width: 5%;
+  }
+}
+
+.row-sentiment,
+.row-graph {
+  border-right: 1px solid var(--gray200);
+}
+
+.graph-col {
+  display: flex;
+  justify-content: space-between;
+  & span:first-child {
+    position: relative;
+    left: -1rem;
+  }
+  & span:last-child {
+    position: relative;
+    left: 1rem;
+  }
+}
+
+.even {
+  background: var(--gray100);
+}
+
+.odd {
+  background: var(--white);
+}

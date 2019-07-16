@@ -1,0 +1,56 @@
+@import "../../styles/variables.css";
+
+.progress-bar {
+  display: flex;
+  height: 4rem;
+  & .progress {
+    height: 100%;
+    width: 33%;
+  }
+}
+
+.details {
+  display: flex;
+  margin: 1rem 20% 0;
+  & .item {
+    flex: 1;
+    text-align: center;
+    position: relative;
+    & .count {
+      font-size: var(--xlarge);
+      font-weight: bold;
+      z-index: 1;
+      position: relative;
+    }
+    & .label {
+      font-size: var(--medium);
+      font-weight: bold;
+    }
+    & .percent {
+      font-size: var(--small);
+    }
+  }
+  & .feeling-bar {
+    height: .25rem;
+    width: 3rem;
+    position: absolute;
+    top: 0.9rem;
+    left: 50%;
+    margin-left: -1.5rem;
+    z-index: 0;
+  }
+}
+
+/* Colors */
+
+.negative {
+  background: var(--red);
+}
+
+.neutral {
+  background: var(--yellow);
+}
+
+.positive {
+  background: var(--green100);
+}

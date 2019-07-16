@@ -1,0 +1,13 @@
+:root {
+  --white: #fff;
+  --black: #000;
+  --gray100: #f4f5f6;
+  --gray200: #cdd2d6;
+  --gray300: #8f9aa3ff;
+  --green100: rgb(29, 205, 159);
+  --green: rgb(143, 236, 200);
+  --yellow: rgb(252, 227, 138);
+  --orange: rgb(255, 177, 116);
+  --red: rgb(238, 90, 90);
+  --blue: rgb(5, 168, 255);
+}

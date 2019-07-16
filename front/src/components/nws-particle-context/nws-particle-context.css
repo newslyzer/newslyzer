@@ -1,0 +1,148 @@
+@import "../../styles/variables.css";
+
+.graph-bar {
+  &.v-negative {
+    background: var(--red);
+  }
+
+  &.negative {
+    background: var(--orange);
+  }
+
+  &.neutral {
+    background: var(--yellow);
+  }
+
+  &.positive {
+    background: var(--green);
+  }
+
+  &.v-positive {
+    background: var(--green100);
+  }
+}
+
+.graph-negative {
+  flex: 1;
+  height: 6rem;
+  display: flex;
+  align-items: center;
+  & .graph-bar {
+    height: 4rem;
+    margin-left: auto;
+  }
+}
+.graph-positive {
+  border-left: 1px solid var(--gray300);
+  flex: 1;
+  height: 6rem;
+  display: flex;
+  align-items: center;
+  & .graph-bar {
+    height: 4rem;
+  }
+}
+
+.progress-bar {
+  display: flex;
+  height: 2rem;
+  background-color: var(--gray100);
+  margin-bottom: 1rem;
+  & .progress {
+    height: 100%;
+    width: 33%;
+    &.negative {
+      background: var(--red);
+    }
+
+    &.neutral {
+      background: var(--yellow);
+    }
+
+    &.positive {
+      background: var(--green100);
+    }
+  }
+}
+
+.context-summary {
+  padding: 0 1rem 1rem;
+}
+
+.context-list {
+  padding: 0 1rem;
+  & ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+  }
+  & li {
+    margin-bottom: 1rem;
+  }
+}
+
+.appearances-length {
+  font-size: var(--xxlarge);
+}
+
+.details {
+  display: flex;
+  & .item {
+    flex: 1;
+    text-align: center;
+    position: relative;
+    & .count {
+      font-size: var(--xlarge);
+      font-weight: bold;
+      z-index: 1;
+      position: relative;
+    }
+    & .label {
+      font-size: var(--medium);
+      font-weight: bold;
+    }
+    & .percent {
+      font-size: var(--small);
+    }
+  }
+  & .feeling-bar {
+    height: .25rem;
+    width: 3rem;
+    position: absolute;
+    top: 0.9rem;
+    left: 50%;
+    margin-left: -1.5rem;
+    z-index: 0;
+    &.negative {
+      background: var(--red);
+    }
+
+    &.neutral {
+      background: var(--yellow);
+    }
+
+    &.positive {
+      background: var(--green100);
+    }
+  }
+
+}
+
+
+
+@media (--large-viewport) {
+
+  .context {
+    display: flex;
+  }
+
+  .context-summary {
+    flex-basis: 25%;
+    padding: 2rem;
+  }
+
+  .context-list {
+    flex: 1;
+    padding: 2rem;
+  }
+}

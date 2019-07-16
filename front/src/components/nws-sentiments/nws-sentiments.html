@@ -1,0 +1,7 @@
+<section class="sentiments section">
+  <h2>Sentiment analysis</h2>
+  <div class="sentiments-graph-wrapper">
+    <nws-sentiments-graph :type="'words'" :data="entities"></nws-sentiments-graph>
+    <nws-sentiments-graph :type="'sentences'" :data="article.sentences"></nws-sentiments-graph>
+  </div>
+</section>

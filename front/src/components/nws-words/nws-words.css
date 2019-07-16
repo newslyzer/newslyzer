@@ -1,0 +1,44 @@
+@import "../../styles/variables.css";
+
+.words-table {
+  width: 100%;
+  border-bottom: 1px solid var(--gray200);
+  margin-bottom: 4rem;
+
+  & th {
+    font-size: var(--medium);
+    color: var(--gray300);
+    font-weight: normal;
+    text-align: center;
+    padding: 1rem;
+  }
+  & td {
+    text-align: center;
+    border-top: 1px solid var(--gray200);
+    padding: 1rem;
+  }
+  & .name {
+    font-size: var(--medium);
+    text-align: left;
+  }
+  & .frequency {
+    font-weight: bold;
+  }
+  & .sentiment {
+  }
+}
+
+@media (--large-viewport) {
+
+  .words-recap-wrapper {
+    display: flex;
+    justify-content: space-between;
+
+    & .words-block {
+      width: 30%;
+    }
+  }
+  .words-table {
+    margin-bottom: 0rem;
+  }
+}

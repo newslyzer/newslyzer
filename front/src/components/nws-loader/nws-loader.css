@@ -1,0 +1,65 @@
+@import "../../styles/variables.css";
+
+.loading-wrapper {
+  background: color(var(--white) alpha(-5%));
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 9;
+}
+
+.rainbow {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 7px;
+  background-color: #fdba2c;
+  z-index: 11;
+}
+.sentiment {
+  content: "";
+  display: inline;
+  position: absolute;
+  width: 0;
+  height: 100%;
+  left: 50%;
+  text-align: center;
+}
+.sentiment:nth-child(1) {
+  background-color: var(--red);
+  animation: loading 3s linear infinite;
+}
+.sentiment:nth-child(2) {
+  background-color: var(--yellow);
+  animation: loading 3s linear 1s infinite;
+}
+.sentiment:nth-child(3) {
+  background-color: var(--green100);
+  animation: loading 3s linear 2s infinite;
+}
+@keyframes loading {
+    from {left: 50%; width: 0;z-index:100;}
+    33.3333% {left: 0; width: 100%;z-index: 10;}
+    to {left: 0; width: 100%;}
+}
+
+.message {
+  position: absolute;
+  top: 50%;
+  width: 100%;
+  text-align: center;
+  left: 0;
+  color: var(--black);
+  font-size: var(--xlarge);
+  font-style: italic;
+  animation: loading-text 1s linear infinite;
+}
+
+@keyframes loading-text {
+    from {opacity: 1;}
+    50% {opacity: 0.3;}
+    to {opacity: 1;}
+}

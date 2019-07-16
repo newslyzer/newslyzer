@@ -1,0 +1,109 @@
+@import "../../styles/variables.css";
+
+header {
+  background: var(--white);
+  position: sticky;
+  top: 0;
+  opacity: 0.9;
+  color: var(--black);
+  z-index: 10;
+
+  & .section {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+}
+
+a {
+  color: var(--black);
+  background: var(--gray10);
+  display: inline-block;
+  padding: 0.5rem 0.5rem;
+  transition: background 200ms cubic-bezier(0.075, 0.82, 0.165, 1);
+  border-bottom: 0;
+  &:hover {
+    background: var(--green100);
+  }
+}
+
+.rainbow {
+  height: 7px;
+  width: 100%;
+  top: 0;
+  left: 0;
+  position: fixed;
+  display: flex;
+  & .sentiment {
+    width: 20%;
+    height: 7px;
+    flex: 1;
+  }
+  & .s-1 {
+    background-color: var(--red);
+  }
+  & .s-2 {
+    background-color: var(--orange);
+  }
+  & .s-3 {
+    background-color: var(--yellow);
+  }
+  & .s-4 {
+    background-color: var(--green);
+  }
+  & .s-5 {
+    background-color: var(--green100);
+  }
+}
+
+.logo {
+  fill: var(--black);
+  margin-left: -10px;
+
+  & svg {
+    width: 12rem;
+    height: 3rem;
+    vertical-align: middle;
+  }
+}
+
+.external-links {
+  margin-left: 2rem;
+}
+
+.icon {
+  fill: var(--black);
+  vertical-align: middle;
+  width: 3rem;
+}
+
+.hint {
+  padding-left: 2rem;
+  font-style: italic;
+  display: none;
+}
+
+.install {
+  background: var(--black);
+  color: var(--gray100);
+  padding: 1rem;
+  text-transform: uppercase;
+  vertical-align: middle;
+  display: none;
+}
+
+
+@media (--medium-viewport) {
+
+  .install {
+    display: inline;
+  }
+}
+
+
+@media (--large-viewport) {
+
+  .hint {
+    display: inline;
+  }
+}

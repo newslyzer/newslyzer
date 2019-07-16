@@ -1,0 +1,111 @@
+@import "../../styles/variables.css";
+
+.hero {
+  display: grid;
+  grid-template-columns: 1fr 475px;
+}
+
+.hero-data {
+  display: flex;
+  align-items: flex-start;
+}
+
+.metadata-title {
+  font-size: var(--xlarge);
+  font-weight: bold;
+  margin-top: 0;
+}
+
+.metadata-summary {
+  line-height: var(--large);
+}
+
+.hero-image {
+  flex-basis: 35%;
+  padding-right: 3rem;
+  & img {
+    width: 100%;
+  }
+}
+
+a {
+  color: var(--blue);
+}
+
+.hero-summary {
+  flex: 1;
+}
+
+.sentiment-data {
+  padding-left: 8rem;
+  max-width: 475px;
+}
+
+.feeling {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: var(--xlarge);
+  font-weight: bold;
+  margin-right: 2rem;
+  position: relative;
+}
+
+.feeling-bar {
+  height: .25rem;
+  width: 100%;
+  position: absolute;
+  z-index: -1;
+}
+
+.box {
+  background: var(--gray100);
+  display: inline-block;
+  height: 60px;
+  width: 60px;
+  margin-right: 0.25rem;
+  &:last-of-type {
+    margin-right: 0;
+  }
+}
+
+
+.sentiments-graph {
+  margin-bottom: 1rem;
+}
+
+/* Colors */
+
+.v-negative {
+  background: var(--red);
+}
+
+.negative {
+  background: var(--orange);
+}
+
+.neutral {
+  background: var(--yellow);
+}
+
+.positive {
+  background: var(--green);
+}
+
+.v-positive {
+  background: var(--green100);
+}
+
+
+@media (--large-viewport) {
+
+  .sentiments-graph-wrapper {
+    display: flex;
+  }
+  .sentiments-graph {
+    flex: 1;
+  }
+  .sentiments-graph:first-child {
+    margin-right: 1rem;
+  }
+}

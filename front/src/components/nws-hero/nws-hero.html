@@ -1,0 +1,41 @@
+<section class="hero section">
+  <div class="hero-data">
+    <div class="hero-image">
+      <img :src="metadata.image" alt="">
+    </div>
+    <div class="hero-summary">
+      <h1 class="metadata-title">{{ metadata.title }}</h1>
+      <p class="metadata-summary"><strong>Summary (Generated)</strong><br> {{ metadata.summary }}</p>
+      <a :href="metadata.url" target="_blank">Read source at {{ metadata.sourceName }}</a>
+    </div>
+  </div>
+  <div class="sentiment-data">
+    <div>Sentiment</div>
+    <div class="feeling" title="Range is in -1 y 1">
+      <span class="feeling-txt">
+      <template v-if="metadata.sentiment < -0.6">VERY NEGATIVE</template>
+      <template v-else-if="metadata.sentiment > -1 && metadata.sentiment <= -0.6">VERY NEGATIVE</template>
+      <template v-else-if="metadata.sentiment > -0.6 && metadata.sentiment <= -0.2">NEGATIVE</template>
+      <template v-else-if="metadata.sentiment > -0.2 && metadata.sentiment <= 0.2">NEUTRAL</template>
+      <template v-else-if="metadata.sentiment > 0.2 && metadata.sentiment <= 0.6">POSITIVE</template>
+      <template v-else-if="metadata.sentiment > 0.6 && metadata.sentiment <= 1">VERY POSITIVE</template>
+      <template v-else>NEUTRO</template>
+      </span>
+      <span class="feeling-num">{{ twoDecSent }}</span>
+      <span :class="feeling" class="feeling-bar"></span>
+    </div>
+    <div class="sentiment-boxes">
+      <span :class="{ 'v-negative': metadata.sentiment > -1 && metadata.sentiment <= -0.6 }" class="box"></span>
+      <span :class="{ 'negative': metadata.sentiment > -0.6 && metadata.sentiment <= -0.2 }" class="box"></span>
+      <span :class="{ 'neutral': metadata.sentiment > -0.2 && metadata.sentiment <= 0.2 }" class="box"></span>
+      <span :class="{ 'positive': metadata.sentiment > 0.2 && metadata.sentiment <= 0.6 }" class="box"></span>
+      <span :class="{ 'v-positive': metadata.sentiment > 0.6 && metadata.sentiment <= 1 }" class="box"></span>
+    </div>
+    <a class="twitter-share-button" :href="'https://twitter.com/intent/tweet?text=' + viralize + '&url=http://www.newslyzer.com/?url=' + metadata.url + '&hashtags=news,analysis&via=newslyzer'">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" version="1">
+        <path d="M256 0a256 256 0 1 0 0 512 256 256 0 0 0 0-512zm147 181v9A215 215 0 0 1 71 372a154 154 0 0 0 112-31c-33-1-61-23-71-53a76 76 0 0 0 35-1c-35-7-61-38-61-75v-1c10 6 22 9 34 10a76 76 0 0 1-23-101c37 45 93 76 156 79a76 76 0 0 1 74-93c22 0 42 9 56 24 17-4 33-10 48-19-6 18-18 33-34 42 16-2 30-6 44-12-10 15-23 29-38 40z"/>
+      </svg>
+      Share this analysis on twitter
+    </a>
+  </div>
+</section>

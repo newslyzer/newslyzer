@@ -1,0 +1,41 @@
+@import "../../styles/variables.css";
+
+
+.feeling {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: var(--large);
+  font-weight: bold;
+  margin-right: 2rem;
+  position: relative;
+}
+
+.feeling-bar {
+  height: .25rem;
+  width: 75%;
+  position: absolute;
+  z-index: -1;
+}
+
+/* Colors */
+
+.v-negative {
+  background: var(--red);
+}
+
+.negative {
+  background: var(--orange);
+}
+
+.neutral {
+  background: var(--yellow);
+}
+
+.positive {
+  background: var(--green);
+}
+
+.v-positive {
+  background: var(--green100);
+}

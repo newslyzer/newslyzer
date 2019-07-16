@@ -1,0 +1,62 @@
+<div class="context">
+  <div class="context-summary">
+    <h3>
+      <span class="appearances-length">{{ context.length }}</span>
+      <span class="appearances">appearances</span>
+    </h3>
+    <div class="progress-bar">
+      <div :style="{ width: getPercent(negatives.length) }" class="progress negative"></div>
+      <div :style="{ width: getPercent(neutrals.length) }" class="progress neutral"></div>
+      <div :style="{ width: getPercent(positives.length) }" class="progress positive"></div>
+    </div>
+    <div class="details">
+      <div class="item">
+        <div class="count">
+            {{negatives.length}}
+        </div>
+        <div class="label">
+          negatives
+        </div>
+        <div class="percent">
+          {{ getPercent(negatives.length) }}
+        </div>
+        <span class="feeling-bar negative"></span>
+      </div>
+      <div class="item">
+        <div class="count">
+          {{neutrals.length}}
+        </div>
+        <div class="label">
+          neutrals
+        </div>
+        <div class="percent">
+          {{ getPercent(neutrals.length) }}
+        </div>
+        <span class="feeling-bar neutral"></span>
+      </div>
+      <div class="item">
+        <div class="count">
+          {{positives.length}}
+        </div>
+        <div class="label">
+          positives
+        </div>
+        <div class="percent">
+          {{ getPercent(positives.length) }}
+        </div>
+        <span class="feeling-bar positive"></span>
+      </div>
+    </div>
+  </div>
+  <div class="context-list">
+    <h4>Context</h4>
+    <ul>
+      <nws-particle-context-single
+        v-for="(sentence, index) in context"
+        :key="index"
+        :word="word"
+        :sentence="sentence">
+        </nws-particle-context-single>
+    </ul>
+  </div>
+</div>

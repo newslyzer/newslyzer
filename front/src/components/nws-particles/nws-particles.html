@@ -1,0 +1,27 @@
+<section class="particles-names section">
+  <h2>{{type}}</h2>
+  <table class="particles-table">
+    <thead>
+      <tr>
+        <th></th>
+        <th>Sentiment</th>
+        <th class="graph-col">
+          <span>-1</span>
+          <span>0</span>
+          <span>1</span>
+        </th>
+        <th></th>
+      </tr>
+    </thead>
+    <nws-particle-single
+      v-for="(particle, index) in particles"
+      v-if="index < 10"
+      :key="particle.index"
+      :particle="particle"
+      :class="{ 
+        'even': index % 2 === 0,
+        'odd': index % 2 !== 0
+      }">
+    </nws-particle-single>
+  </table>
+</section>

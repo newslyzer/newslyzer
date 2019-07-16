@@ -1,0 +1,14 @@
+@import "../../styles/variables.css";
+
+.mark {
+  padding: 1px 2px;
+  &.negative {
+    background: var(--red);
+  }
+  &.neutral {
+    background: var(--yellow);
+  }
+  &.positive {
+    background: var(--green);
+  }
+}

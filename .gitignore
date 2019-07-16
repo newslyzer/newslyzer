@@ -1,2 +1,3 @@
 docker/pgdata
 __pycache__
+front/dist

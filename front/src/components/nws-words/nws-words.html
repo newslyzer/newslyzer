@@ -1,0 +1,66 @@
+<section class="section words">
+  <h2>PERSONS, ORGANIZATIONS, PLACES</h2>
+  <div class="words-recap-wrapper">
+    <div class="words-block by-person">
+      <div class="section-title">
+        <span class="value">{{article.people.length}}</span>
+         persons
+         <a href="#people-particles" class="button-more">View more</a>
+      </div>
+      <table class="words-table" cellspacing="0">
+        <tr>
+          <th></th>
+          <th>Frequency</th>
+          <th>Sentiment</th>
+        </tr>
+        <tr v-if="index < 4" v-for="(particle, index) in article.people" :key="particle.id">
+          <td class="name">{{particle.name}}</td>
+          <td class="frequency">{{particle.frequency}}</td>
+          <td class="sentiment">
+            <nws-particle-graph :context="particle.context"></nws-particle-graph>
+          </td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="words-block by-organization">
+      <div class="section-title">
+        <span class="value">{{article.organizations.length}}</span>
+         organizations
+         <a href="#organizations-particles" class="button-more">View more</a>
+      </div>
+      <table class="words-table" cellspacing="0">
+        <tr>
+          <th></th>
+          <th>Frequency</th>
+          <th>Sentiment</th>
+        </tr>
+        <tr v-if="index < 4" v-for="(particle, index) in article.organizations" :key="particle.id">
+          <td class="name">{{particle.name}}</td>
+          <td class="frequency">{{particle.frequency}}</td>
+          <td class="sentiment"><nws-particle-graph :context="particle.context"></nws-particle-graph></td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="words-block by-places">
+      <div class="section-title">
+        <span class="value">{{article.places.length}}</span>
+         places
+         <a href="#places-particles" class="button-more">View more</a>
+      </div>
+      <table class="words-table" cellspacing="0">
+        <tr>
+          <th></th>
+          <th>Frequency</th>
+          <th>Sentiment</th>
+        </tr>
+        <tr v-if="index < 4" v-for="(particle, index) in article.places" :key="particle.id">
+          <td class="name">{{particle.name}}</td>
+          <td class="frequency">{{particle.frequency}}</td>
+          <td class="sentiment"><nws-particle-graph :context="particle.context"></nws-particle-graph></td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</section>

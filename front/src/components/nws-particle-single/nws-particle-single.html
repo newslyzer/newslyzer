@@ -1,0 +1,49 @@
+<tbody>
+  <tr @click="extendParticle">
+    <td>{{ particle.name }}</td>
+    <td
+      class="row-sentiment"
+      :class="sentiment">
+      {{ particle.sentiment.toLocaleString() }}
+    </td>
+    <td class="row-graph">
+      <div class="graph">
+        <div class="graph-negative">
+          <div
+            :class="sentiment"
+            class="graph-bar"
+            v-if="particle.sentiment < 0"
+            v-bind:style="{width: `${barLength}%`}">
+          </div>
+        </div>
+        <div class="graph-positive">
+          <div
+            :class="sentiment"
+            class="graph-bar"
+            v-if="particle.sentiment > 0"
+            v-bind:style="{width: `${barLength}%`}">
+          </div>
+        </div>
+      </div>
+    </td>
+    <td
+      :class="{'active': extend}"
+      class="row-arrow">
+      <button>
+        <svg viewBox="0 0 17 33">
+          <path
+            fill="none"
+            stroke="#859cad"
+            d="M0 0l16 16L0 32"/>
+        </svg>
+      </button>
+    </td>
+  </tr>
+  <transition name="slide-fade">
+    <tr v-if="extend" class="particle-extend">
+      <td colspan="4">
+        <nws-particle-context :word="particle.name" :context="particle.context"></nws-particle-context>
+      </td>
+    </tr>
+  </transition>
+</tbody>

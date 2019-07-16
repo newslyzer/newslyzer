@@ -1,0 +1,49 @@
+<div class="sentiments-graph">
+  <div class="section-title">
+    <span class="value">{{data.length}}</span>
+    {{type}}
+  </div>
+  <div class="progress-bar">
+    <div :style="{ width: getPercent(negative.length) }" class="progress negative"></div>
+    <div :style="{ width: getPercent(neutral.length) }" class="progress neutral"></div>
+    <div :style="{ width: getPercent(positive.length) }" class="progress positive"></div>
+  </div>
+  <div class="details">
+    <div class="item">
+      <div class="count">
+          {{negative.length}}
+      </div>
+      <div class="label">
+        negative
+      </div>
+      <div class="percent">
+        {{ getPercent(negative.length) }}
+      </div>
+      <span class="feeling-bar negative"></span>
+    </div>
+    <div class="item">
+      <div class="count">
+          {{neutral.length}}
+      </div>
+      <div class="label">
+        neutral
+      </div>
+      <div class="percent">
+        {{ getPercent(neutral.length) }}
+      </div>
+      <span class="feeling-bar neutral"></span>
+    </div>
+    <div class="item">
+      <div class="count">
+          {{positive.length}}
+      </div>
+      <div class="label">
+        positive
+      </div>
+      <div class="percent">
+        {{ getPercent(positive.length) }}
+      </div>
+      <span class="feeling-bar positive"></span>
+    </div>
+  </div>
+</div>
