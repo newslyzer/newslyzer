@@ -15,9 +15,7 @@ from flask_sse import sse
 from timeit import default_timer as timer
 
 from .responses import JSON
-
-from newslyzer.workers.celery import app
-from newslyzer.workers.workflow import workflow
+from .workflow import start_worker
 
 redis = Redis(host='localhost', port=6379)
 
@@ -60,7 +58,6 @@ def workflow_done(flask, url, pubsub_thread):
 
 def workflow_progress(flask, url):
     def callback(progress):
-        print('!!PROGRESS {}'.format(progress))
         with flask.app_context():
             sse.publish({ 'url': url, 'status': 'in_progress', 'progress': progress['data'].decode('utf-8') }, channel=url)
 
@@ -107,7 +104,7 @@ class ArticleResource(Resource):
                 pubsub = redis.pubsub()
                 pubsub.subscribe(**{ 'url:{}:progress'.format(url): workflow_progress(flask, url) })
                 pubsub_thread = pubsub.run_in_thread(sleep_time=0.001)
-                workflow(url).then(
+                start_worker(url).then(
                     workflow_done(self.app, url, pubsub_thread),
                     workflow_failed(self.app, url, pubsub_thread))
 

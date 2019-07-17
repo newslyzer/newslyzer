@@ -1,16 +1,14 @@
 version: '3'
 
 services:
-  rabbitmq:
-    image: "rabbitmq:3.7-management-alpine"
-    restart: "always"
-    ports:
-      - "5672:5672"
-      - "15672:15672"
+  # rabbitmq:
+  #   image: "rabbitmq:3.7-management-alpine"
+  #   ports:
+  #     - "5672:5672"
+  #     - "15672:15672"
 
   postgresql:
     image:  "postgres:10-alpine"
-    restart: "always"
     environment:
       POSTGRES_USER: "newslyzer"
       POSTGRES_PASSWORD: "newslyzer"
@@ -24,6 +22,24 @@ services:
 
   redis:
     image: "redis:5.0-alpine"
-    restart: "always"
     ports:
       - "6379:6379"
+
+  api-server:
+    image: newslyzer/api-server
+    build:
+      context: ../api
+      dockerfile: docker/api.docker
+
+    links:
+      - redis
+      - postgresql
+
+    ports:
+      - "80:80"
+
+#  workers:
+#    build:
+#      image: newslyzer/workers
+#      context: ../workers
+#      dockerfile: workers.docker

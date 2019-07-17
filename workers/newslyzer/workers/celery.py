@@ -16,8 +16,7 @@ def register_tasks(app, config):
         task.register_task(app, config)
 
 app = Celery(
-    'main',
-    broker='pyamqp://guest@127.0.0.1//',
+    broker='redis://127.0.0.1',
     backend='redis://127.0.0.1'
 )
 

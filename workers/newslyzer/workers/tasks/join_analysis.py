@@ -16,7 +16,6 @@ class JoinAnalysis(Task):
         redis = Redis(host='localhost', port=6379)
         counter = redis.incr('url:{}:completed'.format(url))
         progress = counter * offset
-        print('progress {}'.format(progress))
         redis.publish('url:{}:progress'.format(url), progress)
 
         return result
