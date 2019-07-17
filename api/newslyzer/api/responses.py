@@ -6,7 +6,8 @@ class JSON(Response):
     def __init__(self, *args, **kwargs):
         if 'response' in kwargs:
             if type(kwargs['response']) != str:
-                kwargs['response'] = json.dumps(kwargs['response']).encode("utf-8")
+                json_text = json.dumps(kwargs['response'])
+                kwargs['response'] = json_text.encode("utf-8")
 
         kwargs['content_type'] = "application/json"
         super(JSON, self).__init__(*args, **kwargs)

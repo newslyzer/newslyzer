@@ -1,11 +1,24 @@
 from celery import group, chord, signature, chain
-from .tasks import *
 
-def run_one(app, task, *arguments):
+from .celery import app
+
+def run_one(task, *arguments):
     sig = app.signature(task, args=arguments, kwargs={ 'context': {} })
     return sig.delay()
 
-def workflow(url, app):
+def workflow2():
+    def s(task, *args):
+        return app.signature(task, args=args, kwargs={ 'context': {} })
+
+    return s('download-article')
+    # return chain(
+    #     s('download-article'),
+    #     # signature('parse-html'),
+    #     # signature('clean-text'),
+    #     s('process-sentences'),
+    # )
+
+def workflow(url):
     context = {
         'sentiment_analysis': {
             'engine': 'engine1'
@@ -40,16 +53,3 @@ def workflow(url, app):
 
     return result_workflow.delay(data)
 
-def register_tasks(app, config):
-    for task in [
-        DownloadArticle,
-        ProcessSentences,
-        Sentence,
-        SentimentAnalysis,
-        # FlairNER,
-        SpacyNER,
-        JoinAnalysis,
-        CreateView
-    ]:
-        print('Registering task: {}'.format(task.name))
-        task.register_task(app, config)
