@@ -1,12 +1,23 @@
 @import "../../styles/variables.css";
 
-.landing {
+h2 {
+  text-align: center;
+  text-decoration: underline;
+}
+
+.try-it {
   max-width: 600px;
 }
 
+.how-it-works {
+  max-width: 1600px;
+}
+
 label {
-  display: block;
+  display: none;
   margin-bottom: 0.5rem;
+  font-weight: bold;
+  margin-top: 2rem;
 }
 
 input {
@@ -36,4 +47,19 @@ input {
   &[disabled='disabled'] {
     background-color: var(--gray200)
   }
+}
+
+.landing-banner {
+  justify-content: space-around;
+  display: flex;
+  margin: auto;
+  text-align: center;
+
+  & p {
+    padding: 2rem;
+  }
+}
+
+.info {
+  width: 33%;
 }

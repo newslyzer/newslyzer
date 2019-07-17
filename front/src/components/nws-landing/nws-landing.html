@@ -1,11 +1,30 @@
-<section class="landing section">
-  <h2>Sentiment analysis</h2>
-  <p>Ever wanted data about how polarized news are? Newslyzer its a Open Source tool for analyzing texts through sentiment analysis.</p>
-  <a href="" class="landing-btn" target="_blank">Download the plugin</a>
-  <h2>Try it</h2>
-  <form>
-    <label for="url-input">URL to newslyze</label>
-    <input v-model="url" id="url-input" type="url" />
-    <button :disabled="!validateUrl()" type="button" class="landing-btn" @click="retrieveUrl()">Analyze</button>
-  </form>
-</section>
+<div>
+  <section class="landing section try-it">
+    <h2>Text analysis through sentiment</h2>
+    <p>Ever wanted data about how polarized news are? Newslyzer its a Open Source tool for analyzing texts through sentiment analysis.</p>
+    <form>
+      <label for="url-input">Put here the address you want to analyze:</label>
+      <input placeholder="Put here the address you want to analyze" v-model="url" id="url-input" type="url" />
+      <button :disabled="!validateUrl()" type="button" class="landing-btn" @click="retrieveUrl()">Analyze</button>
+    </form>
+  </section>
+
+  <section class="landing section how-it-works">
+    <h2>How does it works?</h2>
+    <div class="landing-banner">
+      <div class="info left">
+        <p>Find an interesting news article or blog post. Do you want to know if is it biased?</p>
+        <img src="/static/landing_left.png" />
+      </div>
+      <div class="info center">
+        <p>Process it through our AI powered pipelines to get information about how polarized the article is.</p>
+        <img src="/static/landing_center.png" />
+      </div>
+      <div class="info right">
+        <p>Get interactive graphs and statistics and play with the tools</p>
+        <img src="/static/landing_right.png" />
+      </div>
+    </div>
+  </section>
+
+</div>

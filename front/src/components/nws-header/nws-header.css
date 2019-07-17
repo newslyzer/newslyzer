@@ -84,12 +84,14 @@ a {
 }
 
 .install {
-  background: var(--black);
-  color: var(--gray100);
+  background: var(--white);
+  border: 1px solid var(--gray300);
+  color: var(--black);
   padding: 1rem;
   text-transform: uppercase;
   vertical-align: middle;
   display: none;
+  font-size: 75%;
 }
 
 
