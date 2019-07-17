@@ -1,0 +1,44 @@
+<div class="analysis-result">
+  <nws-hero v-if="article.metadata" :metadata="article.metadata"></nws-hero>
+  <nws-sentiments v-if="article.sentences" :article="article"></nws-sentiments>
+
+  <div class="section-wrapper-light">
+    <nws-words v-if="article.metadata" :article="article"></nws-words>
+  </div>
+
+  <div class="section graphs" v-if="article.sentences">
+    <div class="graphs-block">
+      <h2>Sentences</h2>
+      <nws-sentiment-evolution
+        :sentences="article.sentences">
+      </nws-sentiment-evolution>
+    </div>
+    <div class="graphs-block" v-if="article.other">
+      <h2>Words</h2>
+      <nws-word-cloud
+        :article="article">
+      </nws-word-cloud>
+    </div>
+  </div>
+
+  <nws-particles
+    v-if="article.people"
+    id="people-particles"
+    :type="'people'"
+    :particles="article.people">
+  </nws-particles>
+
+  <nws-particles
+    v-if="article.places"
+    id="places-particles"
+    :type="'places'"
+    :particles="article.places">
+  </nws-particles>
+
+  <nws-particles
+    v-if="article.organizations"
+    id="organizations-particles"
+    :type="'organizations'"
+    :particles="article.organizations">
+  </nws-particles>
+</div>

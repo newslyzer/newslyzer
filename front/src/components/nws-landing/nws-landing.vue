@@ -9,6 +9,10 @@
       }
     },
     methods: {
+      validateUrl () {
+        return !!this.url
+      },
+
       retrieveUrl () {
         this.$emit('retrieve', this.url)
       }

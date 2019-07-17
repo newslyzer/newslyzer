@@ -25,10 +25,15 @@ input {
   text-transform: uppercase;
   padding: 1rem 1rem;
   border: none;
-  width: 130px;
+  width: 14rem;
   margin-top: 1rem;
   cursor: pointer;
+
   &:hover {
     background-color: var(--green100);
+  }
+
+  &[disabled='disabled'] {
+    background-color: var(--gray200)
   }
 }

@@ -1,11 +1,11 @@
 <section class="landing section">
   <h2>Sentiment analysis</h2>
   <p>Ever wanted data about how polarized news are? Newslyzer its a Open Source tool for analyzing texts through sentiment analysis.</p>
-  <a href="" class="landing-btn" target="_blank">Get it now</a>
+  <a href="" class="landing-btn" target="_blank">Download the plugin</a>
   <h2>Try it</h2>
   <form>
     <label for="url-input">URL to newslyze</label>
     <input v-model="url" id="url-input" type="url" />
-    <button class="landing-btn" @click.prevent="retrieveUrl()">Analyze</button>
+    <button :disabled="!validateUrl()" type="button" class="landing-btn" @click="retrieveUrl()">Analyze</button>
   </form>
 </section>

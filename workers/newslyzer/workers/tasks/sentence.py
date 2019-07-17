@@ -5,5 +5,5 @@ class Sentence(Task):
     provides = 'sentence'
     depends = []
 
-    def run(self, sentence):
-        return sentence
+    def run(self, data, sentence):
+        return data

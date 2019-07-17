@@ -6,7 +6,7 @@ import json
 import uuid
 from redis import Redis
 
-from flask import Flask, url_for
+from flask import Flask, url_for, Blueprint
 from flask import request
 from flask_restful import Api, Resource, reqparse
 from flask_cors import CORS
@@ -35,24 +35,36 @@ class HelloResource(Resource):
         }
         return JSON(response=result)
 
-def workflow_failed(flask, url):
+def workflow_failed(flask, url, pubsub_thread):
     def callback(error):
         redis.set('url:{}:result'.format(url), json.dumps(error.result))
         redis.set('url:{}:status'.format(url), 'failed')
         with flask.app_context():
             sse.publish({ 'url': url, 'status': 'failed', 'error': error.message }, channel=url)
 
+        pubsub_thread.stop()
+
     return callback
 
-def workflow_done(flask, url):
+def workflow_done(flask, url, pubsub_thread):
     def callback(result):
+        print('Workflow done {}'.format(url))
         redis.set('url:{}:result'.format(url), json.dumps(result.result))
         redis.set('url:{}:status'.format(url), 'processed')
         with flask.app_context():
             sse.publish({ 'url': url, 'status': 'processed' }, channel=url)
 
+        pubsub_thread.stop()
+
     return callback
 
+def workflow_progress(flask, url):
+    def callback(progress):
+        print('!!PROGRESS {}'.format(progress))
+        with flask.app_context():
+            sse.publish({ 'url': url, 'status': 'in_progress', 'progress': progress['data'].decode('utf-8') }, channel=url)
+
+    return callback
 
 class ArticleResource(Resource):
     def __init__(self, **kwargs):
@@ -82,6 +94,7 @@ class ArticleResource(Resource):
             status = processing_value
 
         print('url:{}:status ==> {}'.format(url, status))
+        sse.publish({ 'url': url, 'status': 'in_progress' }, channel=url)
 
         # URL is already processed
         if status == 'processed':
@@ -90,11 +103,17 @@ class ArticleResource(Resource):
         else:
             if status == processing_value:
                 redis.set('url:{}:status'.format(url), processing_value)
-                workflow(url).then(workflow_done(self.app, url), workflow_failed(self.app, url))
+                redis.set('url:{}:completed'.format(url), 0)
+                pubsub = redis.pubsub()
+                pubsub.subscribe(**{ 'url:{}:progress'.format(url): workflow_progress(flask, url) })
+                pubsub_thread = pubsub.run_in_thread(sleep_time=0.001)
+                workflow(url).then(
+                    workflow_done(self.app, url, pubsub_thread),
+                    workflow_failed(self.app, url, pubsub_thread))
 
             result = {
                 'status': 'in_progress',
-                'notifications': url_for("sse.stream", channel=url),
+                'notifications': url_for("sse.stream", channel=url, _external=True),
             }
             response = JSON(response=result)
 
@@ -105,15 +124,18 @@ def setup_app():
     flask = Flask(__name__)
     # flask.debug = True
 
-    api = Api(flask)
+    flask.config['REDIS_URL'] = 'redis://localhost'
+    flask.register_blueprint(sse, url_prefix='/stream')
+
+    api_bp = Blueprint('api', __name__)
+    api = Api(api_bp)
     api.add_resource(HelloResource, '/')
     api.add_resource(ArticleResource, '/article', resource_class_kwargs={
         'logger': flask.logger,
         'app': flask
     })
 
-    flask.config['REDIS_URL'] = 'redis://localhost'
-    flask.register_blueprint(sse, url_prefix='/notifications')
+    flask.register_blueprint(api_bp, url_prefix='/api')
 
     CORS(app=flask, supports_credentials=True)
     return flask

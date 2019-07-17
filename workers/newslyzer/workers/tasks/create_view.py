@@ -10,6 +10,7 @@ class CreateView(Task):
 
     def run(self, sentences, data):
         result = {
+            'status': 'processed',
             'metadata': { key: data[key] for key in metadata_keys },
             'sentences': [],
             'people': [],

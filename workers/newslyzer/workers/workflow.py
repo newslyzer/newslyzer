@@ -28,8 +28,8 @@ def workflow(url):
     def s(task, *args):
         return app.signature(task, args=args, kwargs={ 'context': context })
 
-    def ss(task, sentence):
-        return app.signature(task, args=(sentence, ), kwargs={ 'context': context })
+    def ss(task, *args):
+        return app.signature(task, args=args, kwargs={ 'context': context })
 
     print('workflow => {}'.format(url))
     prepare_data = chain(
@@ -45,8 +45,8 @@ def workflow(url):
         group(
             ss('sentiment-analysis', sentence),
             ss('named-entity-analysis', sentence)
-        ) | ss('join-analysis', sentence)
-        for sentence in data['sentences']
+        ) | ss('join-analysis', sentence, data['url'], 100 / len(data['sentences']))
+        for (i, sentence) in enumerate(data['sentences'])
     ]
 
     result_workflow = group(sentences) | s('create-view', data)
