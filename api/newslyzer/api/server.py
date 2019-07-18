@@ -6,15 +6,14 @@ import json
 import uuid
 from redis import Redis
 
-from flask import Flask, url_for, Blueprint
-from flask import request
+from flask import Flask, Blueprint, request, url_for, render_template
 from flask_restful import Api, Resource, reqparse
 from flask_cors import CORS
 from flask_sse import sse
 
 from timeit import default_timer as timer
 
-from .config import redis_connection, redis_host, redis_port
+from .config import redis_connection, redis_host, redis_port, wordcloud_path
 
 from .responses import JSON
 from .workflow import start_worker
@@ -118,10 +117,29 @@ class ArticleResource(Resource):
 
         return response
 
+def index():
+    url = request.args.get('url')
+    result = redis.get('url:{}:result'.format(url))
+
+    if result:
+        data = json.loads(result)
+        title = 'Sentiment Analisys from "{}"'.format(data['metadata'].get('sourceName', data['metadata']['sourceUrl']))
+        description = 'We\'ve analyzed this news article: "{}"'.format(data['metadata']['title'])
+        image = wordcloud_path + '/' + data['wordcloud']
+
+        return render_template(
+            "index.html",
+            url=url,
+            title=title,
+            description=description,
+            image=image)
+    else:
+        return render_template("index.html", url=url)
 
 def setup_app():
     flask = Flask(__name__)
     # flask.debug = True
+    flask.add_url_rule('/', 'index', view_func=index)
 
     flask.config['REDIS_URL'] = redis_connection
     flask.register_blueprint(sse, url_prefix='/stream')

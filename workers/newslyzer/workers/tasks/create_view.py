@@ -106,5 +106,6 @@ class CreateView(Task):
                 'context': [ { 'sentence': sentence['text'], 'sentiment': sentence['sentiment'] } for sentence in entity_sentences ]
             })
 
-        result['wordcloud'] = generate_word_cloud(data['url'], freq_words_dict, sent_words_dict)
+        if len(freq_words_dict) > 0:
+            result['wordcloud'] = generate_word_cloud(data['url'], freq_words_dict, sent_words_dict)
         return result

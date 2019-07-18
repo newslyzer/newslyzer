@@ -12,10 +12,15 @@ COPY requirements.txt /
 RUN pip install -r /requirements.txt
 
 COPY docker/uwsgi.ini /etc/uwsgi/
+
 COPY newslyzer /newslyzer
+
+RUN chown -R uwsgi /newslyzer
 
 EXPOSE 5000
 
+COPY docker/start.sh /
+
 USER uwsgi
 
-CMD [ "sh", "-c", "uwsgi --ini /etc/uwsgi/uwsgi.ini --die-on-term" ]
+CMD /start.sh

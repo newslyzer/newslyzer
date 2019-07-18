@@ -43,8 +43,10 @@ services:
       - redis
     volumes:
       - sockets:/tmp
+      - data:/data
     environment:
       - REDIS_HOST=redis
+    command: [ "sh", "-c", "cp /data/index.html /newslyzer/api/templates/ && /start.sh"]
 
   nginx:
     image: newslyzer/nginx
