@@ -2,3 +2,7 @@
 .analysis-result {
   display: block;
 }
+
+.wordcloud img {
+  max-width: 100%;
+}

@@ -13,11 +13,14 @@
         :sentences="article.sentences">
       </nws-sentiment-evolution>
     </div>
-    <div class="graphs-block" v-if="article.other">
+    <div class="graphs-block wordcloud" v-if="article.other">
       <h2>Words</h2>
+      <img v-bind:src="wordcloudImage()" />
+      <!--
       <nws-word-cloud
         :article="article">
       </nws-word-cloud>
+      -->
     </div>
   </div>
 

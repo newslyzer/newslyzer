@@ -65,9 +65,10 @@ services:
     links:
       - redis
     volumes:
-      - wordcloud:/tmp/wordcloud
+      - wordcloud:/data/wordcloud
     environment:
       - REDIS_HOST=redis
+      - WORDCLOUD_PATH=/data/wordcloud
 
 volumes:
   sockets:

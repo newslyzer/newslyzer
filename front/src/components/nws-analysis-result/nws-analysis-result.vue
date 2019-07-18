@@ -1,6 +1,7 @@
 <template src="./nws-analysis-result.html"></template>
 
 <script>
+  import * as config from '@/config'
   import nwsHero from '@/components/nws-hero/nws-hero'
   import nwsSentiments from '@/components/nws-sentiments/nws-sentiments'
   import nwsWords from '@/components/nws-words/nws-words'
@@ -19,6 +20,12 @@
       'nws-particles': nwsParticles,
       'nws-sentiment-evolution': nwsSentimentEvolution,
       'nws-word-cloud': nwsWordCloud
+    },
+
+    methods: {
+      wordcloudImage () {
+        return `${config.wordcloudBase}/${this.article.wordcloud}`
+      }
     }
   }
 </script>
