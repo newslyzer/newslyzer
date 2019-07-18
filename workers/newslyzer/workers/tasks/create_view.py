@@ -75,7 +75,10 @@ class CreateView(Task):
                     entities_dict[(entity['type'], entity['text'])] = []
                 entities_dict[(entity['type'], entity['text'])].append(sentence['id'])
 
-        result['metadata']['sentiment'] = sum_sentiment / len(sentences)
+        if len(sentences) > 0:
+            result['metadata']['sentiment'] = sum_sentiment / len(sentences)
+        else:
+            result['metadata']['sentiment'] = 0
 
         freq_words_dict = {}
         sent_words_dict = {}
