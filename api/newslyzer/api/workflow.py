@@ -1,9 +1,8 @@
 from celery import Celery, group, signature, chain
 
-celery = Celery(
-    broker='redis://127.0.0.1',
-    backend='redis://127.0.0.1'
-)
+from .config import redis_connection
+
+celery = Celery(broker=redis_connection, backend=redis_connection)
 
 celery.conf.task_routes = {
     'named-entity-analysis': { 'queue': 'ner' }

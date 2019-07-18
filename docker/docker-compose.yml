@@ -1,4 +1,4 @@
-version: '3'
+version: '2.0'
 
 services:
   # rabbitmq:
@@ -7,39 +7,74 @@ services:
   #     - "5672:5672"
   #     - "15672:15672"
 
-  postgresql:
-    image:  "postgres:10-alpine"
-    environment:
-      POSTGRES_USER: "newslyzer"
-      POSTGRES_PASSWORD: "newslyzer"
-      PGDATA: "/var/lib/postgresql/data/pgdata"
-
-    volumes:
-      - "./pgdata:/var/lib/postgresql/data/pgdata"
-
-    ports:
-      - "5432:5432"
+  # postgresql:
+  #   image:  "postgres:10-alpine"
+  #   environment:
+  #     POSTGRES_USER: "newslyzer"
+  #     POSTGRES_PASSWORD: "newslyzer"
+  #     PGDATA: "/var/lib/postgresql/data/pgdata"
+  # 
+  #   volumes:
+  #     - "db-data:/var/lib/postgresql/data/pgdata"
+  # 
+  #   ports:
+  #     - "5432:5432"
 
   redis:
     image: "redis:5.0-alpine"
     ports:
       - "6379:6379"
 
+  front-data:
+    image: newslyzer/frontend
+    build:
+      context: ../front
+      dockerfile: docker/Dockerfile
+
+    volumes:
+      - data:/data
+
   api-server:
     image: newslyzer/api-server
     build:
       context: ../api
-      dockerfile: docker/api.docker
-
+      dockerfile: docker/Dockerfile
     links:
       - redis
-      - postgresql
+    volumes:
+      - sockets:/tmp
+    environment:
+      - REDIS_HOST=redis
 
+  nginx:
+    image: newslyzer/nginx
+    build:
+      context: ./nginx
+    volumes:
+      - data:/data
+      - wordcloud:/data/wordcloud
+      - sockets:/tmp
     ports:
-      - "80:80"
+      - "3333:80"
+      
+  workers:
+    image: newslyzer/workers
+    build:
+      context: ../workers
+      dockerfile: docker/Dockerfile
+    links:
+      - redis
+    volumes:
+      - wordcloud:/tmp/wordcloud
+    environment:
+      - REDIS_HOST=redis
 
-#  workers:
-#    build:
-#      image: newslyzer/workers
-#      context: ../workers
-#      dockerfile: workers.docker
+volumes:
+  sockets:
+    driver: local
+  wordcloud:
+    driver: local
+  db-data:
+    driver: local
+  data:
+    driver: local

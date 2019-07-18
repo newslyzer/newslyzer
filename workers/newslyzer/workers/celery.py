@@ -1,4 +1,6 @@
 from celery import Celery
+
+from .config import redis_connection
 from .tasks import *
 
 def register_tasks(app, config):
@@ -15,10 +17,7 @@ def register_tasks(app, config):
         print('Registering task: {}'.format(task.name))
         task.register_task(app, config)
 
-app = Celery(
-    broker='redis://127.0.0.1',
-    backend='redis://127.0.0.1'
-)
+app = Celery(broker=redis_connection, backend=redis_connection)
 
 app.conf.task_routes = {
     'named-entity-analysis': { 'queue': 'ner' }

@@ -14,10 +14,12 @@ from flask_sse import sse
 
 from timeit import default_timer as timer
 
+from .config import redis_connection, redis_host, redis_port
+
 from .responses import JSON
 from .workflow import start_worker
 
-redis = Redis(host='localhost', port=6379)
+redis = Redis(host=redis_host, port=int(redis_port))
 
 def parse_request():
     parser = reqparse.RequestParser()
@@ -102,7 +104,7 @@ class ArticleResource(Resource):
                 redis.set('url:{}:status'.format(url), processing_value)
                 redis.set('url:{}:completed'.format(url), 0)
                 pubsub = redis.pubsub()
-                pubsub.subscribe(**{ 'url:{}:progress'.format(url): workflow_progress(flask, url) })
+                pubsub.subscribe(**{ 'url:{}:progress'.format(url): workflow_progress(self.app, url) })
                 pubsub_thread = pubsub.run_in_thread(sleep_time=0.001)
                 start_worker(url).then(
                     workflow_done(self.app, url, pubsub_thread),
@@ -121,7 +123,7 @@ def setup_app():
     flask = Flask(__name__)
     # flask.debug = True
 
-    flask.config['REDIS_URL'] = 'redis://localhost'
+    flask.config['REDIS_URL'] = redis_connection
     flask.register_blueprint(sse, url_prefix='/stream')
 
     api_bp = Blueprint('api', __name__)

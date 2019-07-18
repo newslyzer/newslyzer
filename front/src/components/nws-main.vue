@@ -1,6 +1,7 @@
 <template src="./nws-main.html"></template>
 
 <script>
+  import * as config from '@/config'
   import nwsLoader from '@/components/nws-loader/nws-loader'
   import nwsErrorWarning from '@/components/nws-error-warning/nws-error-warning'
 
@@ -55,12 +56,10 @@
       retrieveArticle (newUrl) {
         const url = newUrl || this.url
 
-        const apiPath = `http://localhost:5000/api/article?url=${url}&engine=${this.engine}`
+        const apiPath = `${config.baseApi}/article?url=${url}&engine=${this.engine}`
 
         this.$router.replace({ query: { url: url } })
         this.$http.get(apiPath).then(response => {
-          console.log('response', response)
-
           const data = response.body
 
           if (data.status === 'in_progress') {

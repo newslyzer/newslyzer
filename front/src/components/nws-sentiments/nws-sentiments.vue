@@ -1,7 +1,9 @@
 <template src="./nws-sentiments.html"></template>
 
 <script>
-  import nwsSentimentsGraph from '../nws-sentiments-graph/nws-sentiments-graph'
+  import * as config from '@/config'
+  import nwsSentimentsGraph from '@/components/nws-sentiments-graph/nws-sentiments-graph'
+
   export default {
     name: 'nws-sentiments',
     props: ['article'],
@@ -19,10 +21,8 @@
     },
     methods: {
       mergeEntities () {
-        this.$http.get('http://localhost:5000/article?url=' + this.url)
-        .then(response => {
-          this.article = response.body
-        })
+        this.$http.get(`${config.baseApi}/article?url=${this.url}`)
+            .then(response => { this.article = response.body })
       }
     }
   }
