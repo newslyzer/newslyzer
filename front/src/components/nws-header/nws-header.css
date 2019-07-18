@@ -77,6 +77,11 @@ a {
   width: 3rem;
 }
 
+.left {
+  display: flex;
+  align-items: baseline;
+}
+
 .hint {
   padding-left: 2rem;
   font-style: italic;

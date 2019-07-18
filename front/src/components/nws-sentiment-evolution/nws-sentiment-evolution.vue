@@ -33,7 +33,7 @@ export default {
   props: ['sentences'],
   data () {
     return {
-      datacollection: null,
+      datacollection: {},
       options: null,
       context: '',
       texts: [],

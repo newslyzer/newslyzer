@@ -1,20 +1,20 @@
 <template src="./nws-landing.html"></template>
 
 <script>
+  import nwsAnalyzeInput from '@/components/nws-analyze-input/nws-analyze-input'
+
   export default {
     name: 'nws-landing',
-    data () {
-      return {
-        url: ''
-      }
-    },
-    methods: {
-      validateUrl () {
-        return !!this.url
-      },
 
-      retrieveUrl () {
-        this.$emit('retrieve', this.url)
+    props: [ 'progress', 'currentUrl' ],
+
+    components: {
+      'nws-analyze-input': nwsAnalyzeInput
+    },
+
+    methods: {
+      handleArticle (article) {
+        this.$emit('article', article)
       }
     }
   }

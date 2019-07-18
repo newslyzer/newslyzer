@@ -7,6 +7,7 @@
 .hero-data {
   display: flex;
   align-items: flex-start;
+  flex-direction: column;
 }
 
 .metadata-title {
@@ -20,7 +21,11 @@
 }
 
 .hero-image {
-  display: none;
+  width: 100%;
+
+  & img {
+    max-width: 100%;
+  }
 }
 
 a {
@@ -98,9 +103,10 @@ a {
   background: var(--green100);
 }
 
-
 @media (--large-viewport) {
-
+  .hero-data {
+    flex-direction: row;
+  }
   .hero {
     display: grid;
     grid-template-columns: 1fr 475px;

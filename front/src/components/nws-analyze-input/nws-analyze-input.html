@@ -1,0 +1,15 @@
+<div v-bind:class="{ [position]: true }">
+  <form>
+    <label for="url-input">Put here the address you want to analyze:</label>
+
+    <div class="input-wrapper">
+      <div v-if="progress || progress === 0" class="progress-bar">
+        <div class="text">{{ url }}</div>
+        <div class="progress" v-bind:style="{ width: progress + '%' }"></div>
+      </div>
+      <input placeholder="Put here the address you want to analyze" v-model="url" id="url-input" type="url" />
+    </div>
+
+    <button :disabled="progress || progress === 0 || !validateUrl()" class="landing-btn" @click.prevent="retrieveUrl()">Analyze</button>
+  </form>
+</div>

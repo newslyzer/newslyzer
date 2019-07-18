@@ -1,12 +1,10 @@
 <div>
   <section class="landing section try-it">
     <h2>Text analysis through sentiment</h2>
-    <p>Ever wanted data about how polarized news are? Newslyzer its a Open Source tool for analyzing texts through sentiment analysis.</p>
-    <form>
-      <label for="url-input">Put here the address you want to analyze:</label>
-      <input placeholder="Put here the address you want to analyze" v-model="url" id="url-input" type="url" />
-      <button :disabled="!validateUrl()" type="button" class="landing-btn" @click="retrieveUrl()">Analyze</button>
-    </form>
+    <p class="claim">Ever wanted data about how polarized news are? Newslyzer its a Open Source tool for analyzing texts through sentiment analysis.</p>
+    <nws-analyze-input
+      @article="handleArticle"
+      :currentUrl="currentUrl" :position="'landing'"></nws-analyze-input>
   </section>
 
   <section class="landing section how-it-works">
@@ -26,5 +24,4 @@
       </div>
     </div>
   </section>
-
 </div>

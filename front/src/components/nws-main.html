@@ -1,20 +1,16 @@
 <div>
-  <transition name="loading">
-    <nws-loader v-if="loading"></nws-loader>
-  </transition>
-
   <transition name="pop">
     <nws-error-warning v-if="error"></nws-error-warning>
   </transition>
 
-  <nws-header></nws-header>
+  <nws-header
+    @article="handleArticle"
+    :currentUrl="url" :showSearch="state === 'RESULT'"></nws-header>
 
   <template v-if="state === 'LANDING'">
-    <nws-landing @retrieve="updateUrlAndRetrieve"></nws-landing>
-  </template>
-
-  <template v-if="state === 'PROCESSING'">
-    <div>PROCESSING {{ progress }}</div>
+    <nws-landing
+      @article="handleArticle"
+      :currentUrl="url"></nws-landing>
   </template>
 
   <template v-if="state === 'RESULT'">

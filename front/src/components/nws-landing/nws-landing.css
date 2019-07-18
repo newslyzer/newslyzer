@@ -5,61 +5,49 @@ h2 {
   text-decoration: underline;
 }
 
+.claim {
+  margin-bottom: 6rem;
+}
+
 .try-it {
   max-width: 600px;
 }
 
 .how-it-works {
-  max-width: 1600px;
-}
-
-label {
-  display: none;
-  margin-bottom: 0.5rem;
-  font-weight: bold;
-  margin-top: 2rem;
-}
-
-input {
-  width: 100%;
-  padding: 1rem;
-}
-
-.landing-btn {
-  margin: 0 auto;
-  display: block;
-  margin: 0 auto;
-  color: var(--white);
-  background: var(--black);
-  text-align: center;
-  font-weight: 400;
-  text-transform: uppercase;
-  padding: 1rem 1rem;
-  border: none;
-  width: 14rem;
-  margin-top: 1rem;
-  cursor: pointer;
-
-  &:hover {
-    background-color: var(--green100);
-  }
-
-  &[disabled='disabled'] {
-    background-color: var(--gray200)
-  }
+  min-width: 100%;
+  background-color: var(--gray100);
+  padding: 5rem;
+  margin-top: 5rem;
 }
 
 .landing-banner {
+  max-width: 1000px;
   justify-content: space-around;
   display: flex;
+  flex-direction: column;
   margin: auto;
   text-align: center;
 
+  & img {
+    width: 200px;
+  }
+
   & p {
+    height: 8rem;
     padding: 2rem;
   }
 }
 
 .info {
-  width: 33%;
+  width: 100%;
+}
+
+@media (--medium-viewport) {
+  .landing-banner {
+    flex-direction: row;
+  }
+
+  .info {
+    width: 33%;
+  }
 }
