@@ -45,7 +45,7 @@
         if (article) {
           this.article = article.data
           this.state = 'RESULT'
-          this.$router.replace({ query: { url: article.url } })
+          this.$router.push({ query: { url: article.url } })
         }
       }
     }

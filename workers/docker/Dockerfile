@@ -20,6 +20,7 @@ RUN python -c "import nltk; nltk.download([ 'punkt', 'vader_lexicon' ])"
 #    SequenceTagger.load('ner-multi'); \
 #    SequenceTagger.load('ner-multi-fast')"
 
+RUN python -c "from flair.models import SequenceTagger; SequenceTagger.load('ner-multi-fast')"
 
 COPY newslyzer /newslyzer
 
