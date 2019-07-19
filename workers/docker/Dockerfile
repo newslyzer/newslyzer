@@ -23,4 +23,9 @@ RUN python -c "import nltk; nltk.download([ 'punkt', 'vader_lexicon' ])"
 
 COPY newslyzer /newslyzer
 
+COPY docker/entrypoint.sh /
+
+# ENTRYPOINT /entrypoint.sh
+# CMD ["-Q celery,ner --concurrency=10 -l info"]
+
 CMD [ "sh", "-c", "celery worker -A newslyzer.workers.celery -Q celery,ner --concurrency=10 -l info"]
