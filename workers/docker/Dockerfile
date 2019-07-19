@@ -10,6 +10,8 @@ RUN python -m spacy download xx_ent_wiki_sm && \
     python -m spacy download es_core_news_sm && \
     python -m spacy download en_core_web_sm
 
+RUN mkdir -p /data/wordcloud && chown newslyzer -R /data
+
 USER newslyzer
 
 RUN python -c "import nltk; nltk.download([ 'punkt', 'vader_lexicon' ])"

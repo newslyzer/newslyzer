@@ -3,7 +3,7 @@
  */
 function openMainPage(tab) {
     browser.tabs.create({
-        "url": "http://localhost:8080/?url="+encodeURIComponent(tab.url)
+        "url": "http://localhost:3333/?url="+encodeURIComponent(tab.url)
     });
 }
 

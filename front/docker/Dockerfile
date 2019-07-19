@@ -5,4 +5,6 @@ RUN npm install && npm run build
 
 FROM alpine
 WORKDIR /data
-COPY --from=build /app/dist/ /data
+COPY --from=build /app/dist/ /dist
+
+CMD [ "sh", "-c", "cp -R /dist/* /data/" ]

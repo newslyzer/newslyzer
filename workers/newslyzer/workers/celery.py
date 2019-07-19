@@ -9,8 +9,8 @@ def register_tasks(app, config):
         ProcessSentences,
         Sentence,
         SentimentAnalysis,
-        FlairNER,
-        # SpacyNER,
+        # FlairNER,
+        SpacyNER,
         JoinAnalysis,
         CreateView
     ]:

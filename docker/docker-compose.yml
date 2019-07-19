@@ -1,25 +1,6 @@
 version: '2.0'
 
 services:
-  # rabbitmq:
-  #   image: "rabbitmq:3.7-management-alpine"
-  #   ports:
-  #     - "5672:5672"
-  #     - "15672:15672"
-
-  # postgresql:
-  #   image:  "postgres:10-alpine"
-  #   environment:
-  #     POSTGRES_USER: "newslyzer"
-  #     POSTGRES_PASSWORD: "newslyzer"
-  #     PGDATA: "/var/lib/postgresql/data/pgdata"
-  # 
-  #   volumes:
-  #     - "db-data:/var/lib/postgresql/data/pgdata"
-  # 
-  #   ports:
-  #     - "5432:5432"
-
   redis:
     image: "redis:5.0-alpine"
     ports:
@@ -46,6 +27,7 @@ services:
       - data:/data
     environment:
       - REDIS_HOST=redis
+      - WORDCLOUD_PATH=https://warm-catfish-33.localtunnel.me/wordcloud
     command: [ "sh", "-c", "cp /data/index.html /newslyzer/api/templates/ && /start.sh"]
 
   nginx:
@@ -71,6 +53,14 @@ services:
     environment:
       - REDIS_HOST=redis
       - WORDCLOUD_PATH=/data/wordcloud
+      
+  flower:
+    image: mher/flower
+    links:
+      - redis
+    command: --broker=redis://redis:6379
+    ports:
+      - "5555:5555"
 
 volumes:
   sockets:
